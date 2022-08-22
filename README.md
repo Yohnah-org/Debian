@@ -113,7 +113,6 @@ On the other hand, you want to build the box just using Packer, then you have to
 
 * output_directory to set the path where packer dump the box
 * debian_version to set what version of debian must be installed
-* debian_version to set the version of debian to build the virtual machine golden image for the esulting box
 
 Also, you must use the -only param to set what provider want to use:
 
