@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash -x
 
 export DEBIAN_FRONTEND=noninteractive
 
@@ -16,7 +16,6 @@ EOF
 
 echo "Installing Avahi-Daemon for ZeroConf DNS resolving"
 sudo apt-get -y install avahi-daemon avahi-utils
-sudo mv /tmp/dns /usr/local/bin
 
 echo "Replacing motd message"
 cat /tmp/motd | sudo tee /etc/motd
@@ -27,5 +26,6 @@ echo "Installing scripts"
 sudo mv /tmp/get-ips.sh /usr/bin/
 chmod +x /usr/bin/get-ips.sh
 
-sudo mv /tmp/*-vagrantfile-embedded-plugins.rb /usr/local/share
-sudo chmod +r /usr/local/share/*-vagrantfile-embedded-plugins.rb
+sudo mkdir -p /usr/local/share/vagrant-plugins/
+sudo mv /tmp/*-vagrantfile-embedded-plugins.rb /usr/local/share/vagrant-plugins/
+sudo chmod +r /usr/local/share/vagrant-plugins/*-vagrantfile-embedded-plugins.rb

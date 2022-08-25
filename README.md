@@ -69,6 +69,19 @@ Where "\<Debian version\>" is the specific version of Debian you want to use acc
 
 Resulting a configured and worked Debian service and installed client binaries on host device to be used just like Debian Desktop does
 
+# Vagrant commands
+
+This box add the following vagrant commands to be used on command line:
+
+* list-ip-addresses. To get a list of IP addresses and network interfaces configured onto box.
+    Ex:
+
+    ~~~
+    $ vagrant list-ip-addresses
+    ~~~
+
+![Vagrant client commands example](Docs/Pics/vagrant-commands.png)
+
 
 
 # Building from sources

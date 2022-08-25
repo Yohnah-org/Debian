@@ -96,11 +96,14 @@ Vagrant.configure(2) do |config|
 
   $setplugins = <<-EOF
   sed -i '/#VAGRANT-BEGIN/,/#VAGRANT-END/d' /vagrant/Vagrantfile
+  echo " " >> /vagrant/Vagrantfile
   echo "#VAGRANT-BEGIN" >> /vagrant/Vagrantfile
-  ls /usr/local/share/*-vagrantfile-embedded-plugins.rb 2>/dev/null | while read FILE;
+  echo "# Added commands to vagrant cli to manage the kubernetes box. DO NOT MODIFY" >> /vagrant/Vagrantfile
+  ls /usr/local/share/vagrant-plugins/*-vagrantfile-embedded-plugins.rb 2>/dev/null | while read FILE;
   do
       cat $FILE >> /vagrant/Vagrantfile
   done
+  echo " " >> /vagrant/Vagrantfile
   echo "#VAGRANT-END" >> /vagrant/Vagrantfile
   EOF
 
