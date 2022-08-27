@@ -215,6 +215,21 @@ build {
         ]
     }
 
+    provisioner "file" {
+        source      = "${path.root}/scripts-to-run/"
+        destination = "/tmp/scripts-to-run/"
+    }
+
+    provisioner "shell" {
+        environment_vars = [
+            "VERSION=${local.debian_version}"
+        ]
+        execute_command   = "echo 'vagrant' | {{ .Vars }} sudo -S -E sh -eux '{{ .Path }}'"
+        scripts = [
+            "${path.root}/provision-scripts/run-scripts.sh",
+        ]
+    }
+
     provisioner "shell" {
         environment_vars  = ["HOME_DIR=/home/vagrant"]
         execute_command   = "echo 'vagrant' | {{ .Vars }} sudo -S -E sh -eux '{{ .Path }}'"

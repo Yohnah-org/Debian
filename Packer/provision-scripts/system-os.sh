@@ -14,9 +14,6 @@ sudo bash -c "cat > /etc/mdns.allow" <<'EOF'
 .local
 EOF
 
-echo "Installing Avahi-Daemon for ZeroConf DNS resolving"
-sudo apt-get -y install avahi-daemon avahi-utils
-
 echo "Replacing motd message"
 cat /tmp/motd | sudo tee /etc/motd
 sudo chmod 644 /etc/motd 
@@ -29,3 +26,5 @@ chmod +x /usr/bin/get-ips.sh
 sudo mkdir -p /usr/local/share/vagrant-plugins/
 sudo mv /tmp/*-vagrantfile-embedded-plugins.rb /usr/local/share/vagrant-plugins/
 sudo chmod +r /usr/local/share/vagrant-plugins/*-vagrantfile-embedded-plugins.rb
+
+mkdir -p /tmp/scripts-to-run/
