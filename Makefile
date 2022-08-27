@@ -21,9 +21,9 @@ versions:
 	@echo ::set-output name=debianversion::$(CURRENT_DEBIAN_VERSION)
 
 requirements:
-	mkdir -p $(PACKER_DIRECTORY_OUTPUT)/$(CURRENT_DEBIAN_VERSION)/$(PROVIDER)
+	mkdir -p $(PACKER_DIRECTORY_OUTPUT)/$(CURRENT_VERSION)/$(PROVIDER)
 	mkdir -p $(PACKER_DIRECTORY_OUTPUT)/toupload
-	mkdir -p $(PACKER_DIRECTORY_OUTPUT)/test/$(CURRENT_DEBIAN_VERSION)/$(PROVIDER)
+	mkdir -p $(PACKER_DIRECTORY_OUTPUT)/test/$(CURRENT_VERSION)/$(PROVIDER)
 
 build: requirements
 	sh ./makefile-resources/build-box.sh
