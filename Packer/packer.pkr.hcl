@@ -6,6 +6,10 @@ variable "debian_version" {
     type = string
 }
 
+variable "current_version" {
+    type = string
+}
+
 variable "vm_name" {
     type = string
     default = "debian"
@@ -13,6 +17,7 @@ variable "vm_name" {
 
 locals {
     vm_name = var.vm_name
+    version = var.current_version
     debian_version = var.debian_version
     http_directory = "${path.root}/http"
     iso_url = "https://cdimage.debian.org/debian-cd/current/amd64/iso-cd/debian-${local.debian_version}-amd64-netinst.iso"
@@ -54,7 +59,7 @@ source "virtualbox-iso" "debian" {
     }
     iso_checksum = local.iso_checksum
     iso_url = local.iso_url
-    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${var.debian_version}/virtualbox/"
+    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${local.version}/virtualbox/"
     shutdown_command = local.shutdown_command
     ssh_password = "vagrant"
     ssh_port = 22
@@ -82,7 +87,7 @@ source "parallels-iso" "debian" {
     }
     iso_checksum = local.iso_checksum
     iso_url = local.iso_url
-    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${var.version}/parallels/"
+    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${local.version}/parallels/"
     shutdown_command = local.shutdown_command
     parallels_tools_flavor = "lin"
     ssh_password = "vagrant"
@@ -106,7 +111,7 @@ source "vmware-iso" "debian" {
     }
     iso_checksum = local.iso_checksum
     iso_url = local.iso_url
-    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${var.version}/vmware/"
+    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${local.version}/vmware/"
     shutdown_command = local.shutdown_command
     ssh_password = "vagrant"
     ssh_port = 22
@@ -134,7 +139,7 @@ source "hyperv-iso" "debian" {
     }
     iso_checksum = local.iso_checksum
     iso_url = local.iso_url
-    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${var.version}/hyperv/"
+    output_directory = "${var.output_directory}/packer-build/output/artifacts/${local.vm_name}/${local.version}/hyperv/"
     shutdown_command = local.shutdown_command
     ssh_password = "vagrant"
     ssh_port = 22
@@ -208,7 +213,7 @@ build {
 
     provisioner "shell" {
         environment_vars = [
-            "VERSION=${local.debian_version}"
+            "VERSION=${local.version}"
         ]
         scripts = [
             "${path.root}/provision-scripts/system-os.sh",
@@ -222,7 +227,7 @@ build {
 
     provisioner "shell" {
         environment_vars = [
-            "VERSION=${local.debian_version}"
+            "VERSION=${local.version}"
         ]
         execute_command   = "echo 'vagrant' | {{ .Vars }} sudo -S -E sh -eux '{{ .Path }}'"
         scripts = [
@@ -243,11 +248,11 @@ build {
     post-processors {
         post-processor "vagrant" {
           keep_input_artifact = false
-          output = "${var.output_directory}/packer-build/output/boxes/${local.vm_name}/${var.debian_version}/{{.Provider}}/{{.BuildName}}.box"
+          output = "${var.output_directory}/packer-build/output/boxes/${local.vm_name}/${local.version}/{{.Provider}}/{{.BuildName}}.box"
           vagrantfile_template = "${path.root}/vagrantfile.rb"
         }
         post-processor "manifest" {
-            output = "${var.output_directory}/${var.debian_version}/manifest.json"
+            output = "${var.output_directory}/${local.version}/manifest.json"
         }
     }
 
