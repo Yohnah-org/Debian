@@ -7,7 +7,7 @@ export PROVIDER := virtualbox
 export MANIFESTFILE := $(PACKER_DIRECTORY_OUTPUT)/$(CURRENT_DEBIAN_VERSION)/manifest.json
 export UPLOADER_DIRECTORY := $(PACKER_DIRECTORY_OUTPUT)/toupload
 export VAGRANT_CLOUD_REPOSITORY_BOX_NAME := Yohnah/Debian
-export BOX_NAME=Debian
+export BOX_NAME := Debian
 
 .PHONY: all versions checkifbuild
 

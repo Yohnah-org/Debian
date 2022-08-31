@@ -102,8 +102,9 @@ Vagrant.configure(2) do |config|
   ls /usr/local/share/vagrant-plugins/*-vagrantfile-embedded-plugins.rb 2>/dev/null | while read FILE;
   do
       cat $FILE >> /vagrant/Vagrantfile
+      echo "" >> /vagrant/Vagrantfile
+      echo "" >> /vagrant/Vagrantfile
   done
-  echo " " >> /vagrant/Vagrantfile
   echo "#VAGRANT-END" >> /vagrant/Vagrantfile
   EOF
 
